@@ -1,49 +1,49 @@
-resource "aws_vpc" "vpc" {
+resource "aws_vpc" "dove" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = var.vpc-name
+    Name = "dove-vpc"
   }
 }
 
-resource "aws_internet_gateway" "igw" {
-  vpc_id = aws_vpc.vpc.id
+resource "aws_internet_gateway" "dove-IGW" {
+  vpc_id = aws_vpc.dove.id
 
   tags = {
-    Name = var.igw-name
+    Name = "dove-IGW"
   }
 }
 
-resource "aws_subnet" "public-subnet" {
-  vpc_id                  = aws_vpc.vpc.id
+resource "aws_subnet" "dove-pub-1" {
+  vpc_id                  = aws_vpc.dove.id
   cidr_block              = "10.0.1.0/24"
-  availability_zone       = "us-east-1a"
+  availability_zone       = "us-west-2a"
   map_public_ip_on_launch = true
 
   tags = {
-    Name = var.subnet-name
+    Name = "dove-pub-1"
   }
 }
 
-resource "aws_route_table" "rt" {
-  vpc_id = aws_vpc.vpc.id
+resource "aws_route_table" "dove-pub-RT" {
+  vpc_id = aws_vpc.dove.id
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.igw.id
+    gateway_id = aws_internet_gateway.dove-IGW.id
   }
 
   tags = {
-    Name = var.rt-name
+    Name = "dove-pub-RT"
   }
 }
 
-resource "aws_route_table_association" "rt-association" {
-  route_table_id = aws_route_table.rt.id
-  subnet_id      = aws_subnet.public-subnet.id
+resource "aws_route_table_association" "dove-pub-1-a" {
+  route_table_id = aws_route_table.dove-pub-RT.id
+  subnet_id      = aws_subnet.dove-pub-1.id
 }
 
-resource "aws_security_group" "security-group" {
-  vpc_id      = aws_vpc.vpc.id
+resource "aws_security_group" "dove-sg" {
+  vpc_id      = aws_vpc.dove.id
   description = "Allowing Jenkins, Sonarqube, SSH Access"
 
   ingress = [
