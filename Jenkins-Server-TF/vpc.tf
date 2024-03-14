@@ -68,6 +68,6 @@ resource "aws_security_group" "dove-sg" {
   }
 
   tags = {
-    Name = var.sg-name
+    Name = dove-sg
   }
 }
