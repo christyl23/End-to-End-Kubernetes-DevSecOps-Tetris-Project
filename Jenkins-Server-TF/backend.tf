@@ -1,9 +1,9 @@
 terraform {
   backend "s3" {
-    bucket         = "mynewbucket-24"
+    bucket         = "devsecops24"
     region         = "us-west-2"
     key            = "End-to-End-Kubernetes-DevSecOps-Tetris-Project/Jenkins-Server-TF/terraform.tfstate"
-    dynamodb_table = "my-project"
+    dynamodb_table = "orders"
     encrypt        = true
   }
   required_version = ">=0.13.0"
