@@ -17,7 +17,7 @@ resource "aws_internet_gateway" "dove-IGW" {
 resource "aws_subnet" "dove-pub-1" {
   vpc_id                  = aws_vpc.dove.id
   cidr_block              = "10.0.1.0/24"
-  availability_zone       = "us-west-2a"
+  availability_zone       = "us-east-1"
   map_public_ip_on_launch = true
 
   tags = {
