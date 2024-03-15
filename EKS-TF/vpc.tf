@@ -19,13 +19,6 @@ data "aws_subnet" "dove-pub-subnet" {
   }
 }
 
-data "aws_subnet" "dove-pub-subnet2" {
-  filter {
-    name   = "tag:Name"
-    values = [var.subnet-name2]
-  }
-}
-
 data "aws_security_group" "dove-sg" {
   filter {
     name   = "tag:Name"
