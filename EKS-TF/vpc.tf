@@ -38,7 +38,7 @@ resource "aws_subnet" "dove-pub-2" {
 }
 
 resource "aws_route_table" "dove-pub-RT" {
-  vpc_id = data.aws_vpc.vpc.id
+  vpc_id = data.aws_vpc.dove.id
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = data.aws_internet_gateway.dove-IGW.id
