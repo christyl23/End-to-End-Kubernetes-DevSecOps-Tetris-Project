@@ -1,4 +1,4 @@
-data "aws_vpc" "dove" {
+data "aws_vpc" "dove-vpc" {
   filter {
     name   = "tag:Name"
     values = [var.vpc-name]
@@ -12,10 +12,17 @@ data "aws_internet_gateway" "dove-IGW" {
   }
 }
 
-data "aws_subnet" "dove-pub-1" {
+data "aws_subnet" "dove-pub-subnet" {
   filter {
     name   = "tag:Name"
     values = [var.subnet-name]
+  }
+}
+
+data "aws_subnet" "dove-pub-subnet2" {
+  filter {
+    name   = "tag:Name"
+    values = [var.subnet-name2]
   }
 }
 
@@ -26,19 +33,19 @@ data "aws_security_group" "dove-sg" {
   }
 }
 
-resource "aws_subnet" "dove-pub-2" {
-  vpc_id                  = data.aws_vpc.dove.id
+resource "aws_subnet" "dove-pub-subnet2" {
+  vpc_id                  = data.aws_vpc.dove-vpc.id
   cidr_block              = "10.0.2.0/24"
   availability_zone       = "us-east-1b"
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "dove-pub-2"
+    Name = "dove-pub-subnet2"
   }
 }
 
 resource "aws_route_table" "dove-pub-RT" {
-  vpc_id = data.aws_vpc.dove.id
+  vpc_id = data.aws_vpc.dove-vpc.id
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = data.aws_internet_gateway.dove-IGW.id
@@ -49,12 +56,12 @@ resource "aws_route_table" "dove-pub-RT" {
   }
 }
 
-resource "aws_route_table_association" "dove-pub-1-a" {
+resource "aws_route_table_association" "dove-pub-subnet-a" {
   route_table_id = aws_route_table.dove-pub-RT.id
-  subnet_id      = data.aws_subnet.dove-pub-1
+  subnet_id      = data.aws_subnet.dove-pub-subnet
 }
 
-resource "aws_route_table_association" "dove-pub-2-a" {
-  subnet_id      = aws_subnet.dove-pub-2.id
+resource "aws_route_table_association" "dove-pub-subnet2-a" {
+  subnet_id      = aws_subnet.dove-pub-subnet2.id
   route_table_id = aws_route_table.dove-pub-RT.id
 }
