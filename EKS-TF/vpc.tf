@@ -51,7 +51,7 @@ resource "aws_route_table" "dove-pub-RT" {
 
 resource "aws_route_table_association" "dove-pub-1-a" {
   route_table_id = aws_route_table.dove-pub-RT.id
-  subnet_id      = data "aws_subnet" "dove-pub-1"
+  subnet_id      = data.aws_subnet.dove-pub-1
 }
 
 resource "aws_route_table_association" "dove-pub-2-a" {
