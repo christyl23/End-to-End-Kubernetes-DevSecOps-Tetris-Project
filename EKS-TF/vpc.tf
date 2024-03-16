@@ -12,14 +12,14 @@ data "aws_internet_gateway" "dove-IGW" {
   }
 }
 
-resource "aws_subnet" "dove-pub-subnet1" {
+resource "aws_subnet" "dove-pub-subnet" {
   vpc_id                  = data.aws_vpc.dove-vpc.id
   cidr_block              = "10.0.2.0/24"
   availability_zone       = "us-east-1d"
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "dove-pub-subnet1"
+    Name = "dove-pub-subnet"
   }
 }
 
