@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket         = "devsecops24"
+    bucket         = "tetris-24"
     region         = "us-east-1"
     key            = "End-to-End-Kubernetes-DevSecOps-Tetris-Project/EKS-TF/terraform.tfstate"
     dynamodb_table = "orders"
