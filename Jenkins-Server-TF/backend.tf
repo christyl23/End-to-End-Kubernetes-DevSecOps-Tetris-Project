@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
-    bucket         = "tetris-24"
-    region         = "us-east-1"
+    bucket         = "advanced-end-to-end-devsecops-new"
+    region         = "us-west-2"
     key            = "End-to-End-Kubernetes-DevSecOps-Tetris-Project/Jenkins-Server-TF/terraform.tfstate"
     dynamodb_table = "orders"
     encrypt        = true
